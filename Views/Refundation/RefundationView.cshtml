@@ -1,0 +1,71 @@
+﻿@model GoPayCardPayment.Models.PaymentListingModelView
+
+@{
+    ViewData["Title"] = "Vyvolání refundace";
+    ViewData["containerClass"] = "container";
+
+    List<EshopPayment> paymentList = Model.PaymentList;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<article>
+    <h2>Vyberte transakci, kterou chcete refundovat:</h2>
+    <form asp-controller="Refundation" asp-action="RefundationBackend" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">payment_pk</th>
+                    <th scope="col">payment_id</th>
+                    <th scope="col">order_number</th>
+                    <th scope="col">state</th>
+                    <th scope="col">payment_instrument</th>
+                    <th scope="col">amount</th>
+                    <th scope="col">currency</th>
+                    <th scope="col">payer email...</th>
+                    <th scope="col">card_number...</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    bool firstIteration = true;
+                    foreach (EshopPayment payment in paymentList)
+                    {
+                        <tr>
+                            <th>
+                                @{
+                                    if (firstIteration)
+                                    {
+                                        <input type="radio" checked id="@payment.PaymentPK" name="paymentPKstr" value="@payment.PaymentPK">
+                                        firstIteration = false;
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" id="@payment.PaymentPK" name="paymentPKstr" value="@payment.PaymentPK">
+                                    }
+                                }
+                            </th>
+                            <td scope="row">@(payment.PaymentPK.HasValue ? payment.PaymentPK.Value.ToString() : "-neexistuje-")</td>
+                            <td>@payment.PaymentID.ToString()</td>
+                            <td>@payment.OrderNumber</td>
+                            <td>@payment.State.ToString()</td>
+                            <td>@payment.PaymentInstrument.ToString()</td>
+                            <td>@payment.Amount.ToString()</td>
+                            <td>@payment.Currency.ToString()</td>
+                            <td title="@payment.Payer.Customer.CustomerPK, @payment.Payer.Customer.FirstName, @payment.Payer.Customer.LastName, @payment.Payer.Customer.Email, @payment.Payer.Customer.PhoneNumber, @payment.Payer.Customer.City, @payment.Payer.Customer.Street, @payment.Payer.Customer.PostalCode, @payment.Payer.Customer.CountryCode.ToString()">
+                                @payment.Payer.Customer.Email.ToString()
+                            </td>
+                            <td title="@payment.Payer.PaymentCard.paymentCardPK, @payment.Payer.PaymentCard.cardNumber, @payment.Payer.PaymentCard.cardExpiration, @payment.Payer.PaymentCard.cardBrand, @payment.Payer.PaymentCard.cardIssuerCountry.ToString(), @payment.Payer.PaymentCard.cardIssuerBank, @payment.Payer.PaymentCard.cardFingerprint ?? -neexistuje-">
+                                @payment.Payer.PaymentCard.cardNumber.ToString()
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div>
+            <button type="submit">Refundovat</button>
+        </div>
+    </form>
+</article>

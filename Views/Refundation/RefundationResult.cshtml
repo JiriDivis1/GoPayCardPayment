@@ -1,0 +1,26 @@
+﻿@model SuccessObject
+
+@{
+    ViewData["Title"] = "Výsledek refundace";
+    ViewData["containerClass"] = "container";
+
+    bool success = Model.Success;
+    string message = Model.Message;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@if (success) {
+    <p>
+        Refundace proběhla úspěšně
+    </p>
+} else {
+    <p>
+        Refundace NEPROBĚHLA úspěšně
+    </p>
+}
+<p>
+    @message
+</p>
+

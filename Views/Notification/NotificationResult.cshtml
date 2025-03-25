@@ -1,0 +1,98 @@
+﻿@model GoPayCardPayment.Models.EshopPayment
+
+@{
+    ViewData["Title"] = "GoPay Notifikace";
+    ViewData["containerClass"] = "container";
+
+    EshopPayer? payer = Model != null ? Model.Payer : null;
+    Customer? customer = Model != null ? payer?.Customer : null;
+    PaymentCard? paymentCard = Model != null ? payer?.PaymentCard : null;
+}
+
+<h1>GoPay Notifikace</h1>
+
+@if (Model == null)
+{
+    <div>
+        Zatím žádná notifikace nepřišla
+    </div>
+}
+else if (customer != null && payer != null && paymentCard != null)
+{
+    <article>
+        <h2>Zachycená notifikace:</h2>
+        <dl>
+            <dt>ID platby:</dt>
+            <dd>@(Model.PaymentID.ToString() ?? "-neexistuje-")</dd>
+            <dt>Identifikace objednávky (v rámci eshopu):</dt>
+            <dd>@Model.OrderNumber</dd>
+            <dt>Stav platby:</dt>
+            <dd>@Model.State.ToString()</dd>
+            <dt>Platební metoda:</dt>
+            <dd>@Model.PaymentInstrument</dd>
+            <dt>Celková částka:</dt>
+            <dd>@Model.Amount</dd>
+            <dt>Měna platby:</dt>
+            <dd>@Model.Currency.ToString()</dd>
+            <dt>
+                Plátce:
+            </dt>
+            <dd>
+                <dl>
+                    <dt>ID plátce:</dt>
+                    <dd>@(payer.PayerPK.ToString() ?? "-neexistuje-")</dd>
+                    <dt>
+                        Zákazník (údaje o plátci:)
+                    </dt>
+                    <dd>
+                        <dl>
+                            <dt>ID zákazníka:</dt>
+                            <dd>@customer.CustomerPK</dd>
+                            <dt>Křestní jméno:</dt>
+                            <dd>@customer.FirstName</dd>
+                            <dt>Příjmení:</dt>
+                            <dd>@customer.LastName</dd>
+                            <dt>Email:</dt>
+                            <dd>@customer.Email</dd>
+                            <dt>Telefonní číslo:</dt>
+                            <dd>@customer.PhoneNumber</dd>
+                            <dt>Město:</dt>
+                            <dd>@customer.City</dd>
+                            <dt>Ulice:</dt>
+                            <dd>@customer.Street</dd>
+                            <dt>Poštovní směrovací číslo:</dt>
+                            <dd>@customer.PostalCode</dd>
+                            <dt>Kód státu:</dt>
+                            <dd>@customer.CountryCode.ToString()</dd>
+                        </dl>
+                    </dd>
+                    <dt>
+                        Platební karta (kterou zákázník platbu účinil)
+                    </dt>
+                    <dd>
+                        <dl>
+                            <dt>ID karty :</dt>
+                            <dd>@(paymentCard.paymentCardPK.ToString() ?? "-neexistuje-")</dd>
+                            <dt>Číslo karty (maskované):</dt>
+                            <dd>@paymentCard.cardNumber</dd>
+                            <dt>Datum expirace:</dt>
+                            <dd>@paymentCard.cardExpiration</dd>
+                            <dt>Asociace platební karty:</dt>
+                            <dd>@paymentCard.cardBrand</dd>
+                            <dt>Země vydání platební karty:</dt>
+                            <dd>@paymentCard.cardIssuerCountry.ToString()</dd>
+                            <dt>Vydavatelská banka:</dt>
+                            <dd>@paymentCard.cardIssuerBank</dd>
+                            <dt>Unikátní identifikátor této platební karty:</dt>
+                            <dd>@(paymentCard.cardFingerprint ?? "-neexistuje-")</dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </dd>
+            <dt>Jazyk na platební bráně: </dt>
+            <dd>@Model.Lang</dd>
+            <dt>URL platební brány: </dt>
+            <dd>@Model.GwURL</dd>
+        </dl>
+    </article>
+}

@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "GoPay zkušební aplikace";
+    ViewData["containerClass"] = "container";
+}
+
+<main class="text-start">
+    <h1 class="display-4">Manuál</h1>
+    <p>NGROK na čas přiděluje veřejnou URL, používám, jelikož nemám veřejnou URL, kterou potřebuji, aby na ni mohl GoPay posílat notifikaci o prováděných platbách</p>
+    <article>
+        <h2>GlobalVariables.cs</h2>
+        <p>V tomto souboru se nachází Globální proměnné pro celou aplikaci (aplikační stavy)</p>
+        <p><span class="fw-bold">Nastavte Connection String k Postgres databázi,</span> všechny ostatní proměnné jsou předvyplněné a měly by fungovat
+            pokud UsingNGROK == true, returnURL a notificationURL se automaticky nastaví, jakmile se získá veřejná NGROK URL
+        </p>
+    </article>
+    <article>
+        <h2>Testovací platební karty</h2>
+        <ul>
+            <li><i>Číslo karty (Mastercard): </i>5447380000000006</li>
+            <li><i>Číslo karty (VISA):</i>4444444444444448	</li>
+            <li><i>Platnost: </i>musí být budoucí</li>
+            <li><i>CVC/CVV</i>nezáleží</li>
+            <li><i>Částka končící na *00</i>Autorizace úspěšná - platba uhrazena</li>
+            <li><i>Částka končící na *04</i>Autorizace neúspěšná - platba zamítnuta</li>
+        </ul>
+    </article>
+</main>

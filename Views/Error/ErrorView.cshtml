@@ -1,0 +1,21 @@
+﻿@model GoPayCardPayment.Models.ErrorObject
+
+@{
+    ViewData["Title"] = "Nastala chyba";
+    ViewData["containerClass"] = "container";
+}
+<h1>Chyba</h1>
+
+<p>
+   @if (Model?.errorMessage != null)
+   {
+       @Model.errorMessage
+   }
+   else
+   {
+       @("Žádná chyba nebyla zachycena.")
+   } 
+</p>
+<div>
+    <a asp-action="Index" asp-controller="Home">Zpět</a>
+</div>
