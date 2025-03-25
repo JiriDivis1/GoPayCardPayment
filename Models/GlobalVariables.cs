@@ -15,7 +15,7 @@ namespace GoPayCardPayment.Models
         public static bool usingNGROK = true;
         // Connection string k Postgres
         public static readonly string connectionString = "" +
-            "Server=localhost; port=5432; user id=postgres; password=1234; database=GoPayDatabase";     
+            "Server=; port=; user id=; password=; database=";     
         public static readonly string sandboxURL = "https://gw.sandbox.gopay.com/api";      // URL pro sandbox                  
         public static readonly string goID = "8408381003";                      // Jedinečný identifikátor eshopu v systému platební brány
         public static readonly string secureKey = "z9dcyJnNuLW8Lh2VJGYAZWza";           
