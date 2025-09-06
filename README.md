@@ -1,3 +1,5 @@
+Integrace platební metody GoPay
+
 Použité NuGet balíčky:
 
 	bootstrat
@@ -9,4 +11,4 @@ Extensions:
 
 Tato aplikace využívá NGROK (Vygeneruje veřejnou URL, tu potřebujeme, aby na ni GoPay posílal notifikace o platbách)
 
-Před spuštěním aplikace, musíte spustit NGROK (Ngrok Extensions 2022)
+Před spuštěním aplikace, musíte spustit NGROK (Ngrok Extensions 2022, Tools - start ngrok Tunnel)
